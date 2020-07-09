@@ -19,7 +19,7 @@ void loop()
     case 's':
       mySerial.println("AT+CMGF=1");   
      delay(1000); 
-     mySerial.println("AT+CMGS=\"+916351584610\"\r");
+     mySerial.println("AT+CMGS=\"+91##########\"\r");
      delay(1000);
      mySerial.println("Hello");
      delay(100);
