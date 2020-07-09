@@ -32,18 +32,28 @@ void setup() {
 void loop() {
   Serial.print("Reading: ");
   int result = analogRead(scale.get_units());
-  //Serial.print(scale.get_units()); //scale.get_units() returns a float
-  //Serial.print(" kg"); //You can change this to kg but you'll need to refactor the calibration_factor
   Serial.print(result);
   Serial.println();
-     if(result<400)
+     if(result==255)
        {
-          Serial.println("URGENT");
+          Serial.println("Alert");
           mySerial.println("AT+CMGF=1");
           delay(1000);
-          mySerial.println("AT+CMGS=\"+919016231815\"\r"); //Enter mobile number
+          mySerial.println("AT+CMGS=\"+91##########\"\r"); //Enter mobile number
           delay(1000);
-          mySerial.println("SMS from GSM Module");//SMS text you want to send
+          mySerial.println("30% fluid remaining");//SMS text you want to send
+          delay(1000);
+          mySerial.println((char)26); // aASCII code of CTRL+Z
+          delay(1000);
+        }
+     if(result==125)
+       {
+          Serial.println("Urgent Alert");
+          mySerial.println("AT+CMGF=1");
+          delay(1000);
+          mySerial.println("AT+CMGS=\"+91##########\"\r"); //Enter mobile number
+          delay(1000);
+          mySerial.println("Urgent! 10% fluid remaining");//SMS text you want to send
           delay(1000);
           mySerial.println((char)26); // aASCII code of CTRL+Z
           delay(1000);
